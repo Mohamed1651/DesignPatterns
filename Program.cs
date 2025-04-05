@@ -1,4 +1,5 @@
 ﻿using DesignPatterns.Behavioral.Command;
+using DesignPatterns.Behavioral.Iterator;
 using DesignPatterns.Behavioral.Observer;
 using DesignPatterns.Behavioral.Strategy;
 using DesignPatterns.Behavioral.TemplateMethod;
@@ -21,10 +22,19 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            DocumentProcessor pdfProcessor = new PdfDocumentProcessor();
-            pdfProcessor.ProcessDocument("example.pdf");
-            DocumentProcessor wordProcessor = new WordDocumentProcessor();
-            wordProcessor.ProcessDocument("example.docx");
+            BookCollection bookCollection = new BookCollection();
+            Book book1 = new Book("Book 1");
+            Book book2 = new Book("Book 2");
+            Book book3 = new Book("Book 3");
+            bookCollection.AddBook(book1);
+            bookCollection.AddBook(book2);
+            bookCollection.AddBook(book3);
+            IBookIterator iterator = bookCollection.CreateIterator();
+
+            while (iterator.HasNext())
+            {
+                Console.WriteLine(iterator.Next().Title);
+            }
         }
 
     }
