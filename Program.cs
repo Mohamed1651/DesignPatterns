@@ -1,6 +1,7 @@
 ﻿using DesignPatterns.Behavioral.Command;
 using DesignPatterns.Behavioral.Observer;
 using DesignPatterns.Behavioral.Strategy;
+using DesignPatterns.Behavioral.TemplateMethod;
 using DesignPatterns.Creational.AbstractFactory;
 using DesignPatterns.Creational.Builder;
 using DesignPatterns.Creational.FactoryMethod;
@@ -20,17 +21,10 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            RemoteControl remoteControl = new RemoteControl();
-            Light light = new Light();
-            ICommand lightOn = new TurnLightOnCommand(light);
-            ICommand lightOff = new TurnLightOffCommand(light);
-
-            remoteControl.SetCommand(lightOn);
-            remoteControl.PressButton(); // Light is turned on
-            remoteControl.PressUndo(); // Light is turned off
-            remoteControl.SetCommand(lightOff);
-            remoteControl.PressButton(); // Light is turned off
-            remoteControl.PressUndo(); // Light is turned on
+            DocumentProcessor pdfProcessor = new PdfDocumentProcessor();
+            pdfProcessor.ProcessDocument("example.pdf");
+            DocumentProcessor wordProcessor = new WordDocumentProcessor();
+            wordProcessor.ProcessDocument("example.docx");
         }
 
     }
