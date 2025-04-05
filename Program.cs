@@ -1,4 +1,5 @@
-﻿using DesignPatterns.Creational.AbstractFactory;
+﻿using DesignPatterns.Behavioral.Strategy;
+using DesignPatterns.Creational.AbstractFactory;
 using DesignPatterns.Creational.Builder;
 using DesignPatterns.Creational.FactoryMethod;
 using DesignPatterns.Creational.Prototype;
@@ -17,13 +18,9 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            CardFactory cardFactory = new CardFactory();
-            Card card1 = cardFactory.GetCard(Rank.Ace, Suit.Hearts);
-            Card card2 = cardFactory.GetCard(Rank.Queen, Suit.Spades);
-            Card card3 = cardFactory.GetCard(Rank.Ace, Suit.Hearts);
-            card1.Display();
-            Console.WriteLine(Object.ReferenceEquals(card1, card3));
-            Console.WriteLine(Object.ReferenceEquals(card1, card2));
+            PaymentContext paymentContext = new PaymentContext();
+            paymentContext.SetStrategy(new CreditcardPayment());
+            paymentContext.ExecutePayment(100);
         }
 
     }
