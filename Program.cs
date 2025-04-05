@@ -1,4 +1,5 @@
-﻿using DesignPatterns.Behavioral.Observer;
+﻿using DesignPatterns.Behavioral.Command;
+using DesignPatterns.Behavioral.Observer;
 using DesignPatterns.Behavioral.Strategy;
 using DesignPatterns.Creational.AbstractFactory;
 using DesignPatterns.Creational.Builder;
@@ -19,14 +20,17 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            Stock googleStock = new Stock();
-            PriceDisplay priceDisplay = new PriceDisplay();
-            PriceLogger priceLogger = new PriceLogger();
-            googleStock.AddObserver(priceDisplay);
-            googleStock.AddObserver(priceLogger);
-            googleStock.Price = 1500; // This will notify observers
-            googleStock.RemoveObserver(priceDisplay);
-            googleStock.Price = 1600; // This will notify only the logger
+            RemoteControl remoteControl = new RemoteControl();
+            Light light = new Light();
+            ICommand lightOn = new TurnLightOnCommand(light);
+            ICommand lightOff = new TurnLightOffCommand(light);
+
+            remoteControl.SetCommand(lightOn);
+            remoteControl.PressButton(); // Light is turned on
+            remoteControl.PressUndo(); // Light is turned off
+            remoteControl.SetCommand(lightOff);
+            remoteControl.PressButton(); // Light is turned off
+            remoteControl.PressUndo(); // Light is turned on
         }
 
     }
