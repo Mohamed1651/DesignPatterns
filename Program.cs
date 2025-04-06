@@ -1,6 +1,7 @@
 ﻿using DesignPatterns.Behavioral.Command;
 using DesignPatterns.Behavioral.Iterator;
 using DesignPatterns.Behavioral.Observer;
+using DesignPatterns.Behavioral.State;
 using DesignPatterns.Behavioral.Strategy;
 using DesignPatterns.Behavioral.TemplateMethod;
 using DesignPatterns.Creational.AbstractFactory;
@@ -22,19 +23,16 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            BookCollection bookCollection = new BookCollection();
-            Book book1 = new Book("Book 1");
-            Book book2 = new Book("Book 2");
-            Book book3 = new Book("Book 3");
-            bookCollection.AddBook(book1);
-            bookCollection.AddBook(book2);
-            bookCollection.AddBook(book3);
-            IBookIterator iterator = bookCollection.CreateIterator();
-
-            while (iterator.HasNext())
-            {
-                Console.WriteLine(iterator.Next().Title);
-            }
+            MediaPlayer mediaPlayer = new MediaPlayer();
+            mediaPlayer.Play();
+            mediaPlayer.Pause();
+            mediaPlayer.Stop();
+            mediaPlayer.Play();
+            mediaPlayer.Pause();
+            mediaPlayer.Stop();
+            mediaPlayer.Play();
+            mediaPlayer.Pause();
+            mediaPlayer.Stop();
         }
 
     }
