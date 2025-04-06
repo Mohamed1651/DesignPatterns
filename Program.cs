@@ -1,5 +1,6 @@
 ﻿using DesignPatterns.Behavioral.ChainOfResponsibility;
 using DesignPatterns.Behavioral.Command;
+using DesignPatterns.Behavioral.Interpreter;
 using DesignPatterns.Behavioral.Iterator;
 using DesignPatterns.Behavioral.Mediator;
 using DesignPatterns.Behavioral.Memento;
@@ -28,20 +29,10 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            List<IFile> files = new List<IFile>
-            {
-                new AudioFile("music.mp3"),
-                new TextFile("notes.txt")
-            };
-
-            IFileVisitor scanner = new VirusScanner();
-            IFileVisitor compressor = new Compressor();
-
-            foreach(var file in files)
-            {
-                file.Accept(scanner);
-                file.Accept(compressor);
-            }
+            string input = "3 + 5 - 2";
+            IExpression expr = ExpressionParser.Parse(input);
+            int result = expr.Interpret();
+            Console.WriteLine(result);
         }
 
     }
