@@ -1,4 +1,5 @@
-﻿using DesignPatterns.Behavioral.Command;
+﻿using DesignPatterns.Behavioral.ChainOfResponsibility;
+using DesignPatterns.Behavioral.Command;
 using DesignPatterns.Behavioral.Iterator;
 using DesignPatterns.Behavioral.Observer;
 using DesignPatterns.Behavioral.State;
@@ -16,6 +17,7 @@ using DesignPatterns.Structural.Facade;
 using DesignPatterns.Structural.Flyweight;
 using DesignPatterns.Structural.Proxy;
 using File = DesignPatterns.Structural.Composite.File;
+using Logger = DesignPatterns.Behavioral.ChainOfResponsibility.Logger;
 
 namespace DesignPatterns
 {
@@ -23,16 +25,16 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            MediaPlayer mediaPlayer = new MediaPlayer();
-            mediaPlayer.Play();
-            mediaPlayer.Pause();
-            mediaPlayer.Stop();
-            mediaPlayer.Play();
-            mediaPlayer.Pause();
-            mediaPlayer.Stop();
-            mediaPlayer.Play();
-            mediaPlayer.Pause();
-            mediaPlayer.Stop();
+            Logger console = new ConsoleLogger();
+            Logger file = new FileLogger();
+            Logger email = new EmailLogger();
+
+            console.SetNext(file);
+            file.SetNext(email);
+
+            console.Log(LogLevel.Debug, "Debug message");
+            console.Log(LogLevel.Error, "Error message");
+            console.Log(LogLevel.Fatal, "Fatal message");
         }
 
     }
