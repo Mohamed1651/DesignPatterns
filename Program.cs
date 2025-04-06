@@ -1,6 +1,7 @@
 ﻿using DesignPatterns.Behavioral.ChainOfResponsibility;
 using DesignPatterns.Behavioral.Command;
 using DesignPatterns.Behavioral.Iterator;
+using DesignPatterns.Behavioral.Mediator;
 using DesignPatterns.Behavioral.Observer;
 using DesignPatterns.Behavioral.State;
 using DesignPatterns.Behavioral.Strategy;
@@ -25,16 +26,12 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            Logger console = new ConsoleLogger();
-            Logger file = new FileLogger();
-            Logger email = new EmailLogger();
+            IChatRoomMediator chatRoom = new ChatRoom();
 
-            console.SetNext(file);
-            file.SetNext(email);
-
-            console.Log(LogLevel.Debug, "Debug message");
-            console.Log(LogLevel.Error, "Error message");
-            console.Log(LogLevel.Fatal, "Fatal message");
+            User user1 = new User("User1", chatRoom);
+            User user2 = new User("User2", chatRoom);
+            user1.Send("Hello User2");
+            user2.Send("Hello User1");
         }
 
     }
