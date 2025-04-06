@@ -7,6 +7,7 @@ using DesignPatterns.Behavioral.Observer;
 using DesignPatterns.Behavioral.State;
 using DesignPatterns.Behavioral.Strategy;
 using DesignPatterns.Behavioral.TemplateMethod;
+using DesignPatterns.Behavioral.Visitor;
 using DesignPatterns.Creational.AbstractFactory;
 using DesignPatterns.Creational.Builder;
 using DesignPatterns.Creational.FactoryMethod;
@@ -27,16 +28,20 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            var editor = new Editor();
-            var history = new EditorHistory();
+            List<IFile> files = new List<IFile>
+            {
+                new AudioFile("music.mp3"),
+                new TextFile("notes.txt")
+            };
 
-            editor.Type("Mo is here");
-            history.Save(editor.Save());
-            editor.Type(" and he is happy");
-            editor.Save();
-            Console.WriteLine(editor.GetContent());
-            editor.Restore(history.Undo());
-            Console.WriteLine(editor.GetContent());
+            IFileVisitor scanner = new VirusScanner();
+            IFileVisitor compressor = new Compressor();
+
+            foreach(var file in files)
+            {
+                file.Accept(scanner);
+                file.Accept(compressor);
+            }
         }
 
     }
