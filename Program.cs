@@ -2,6 +2,7 @@
 using DesignPatterns.Behavioral.Command;
 using DesignPatterns.Behavioral.Iterator;
 using DesignPatterns.Behavioral.Mediator;
+using DesignPatterns.Behavioral.Memento;
 using DesignPatterns.Behavioral.Observer;
 using DesignPatterns.Behavioral.State;
 using DesignPatterns.Behavioral.Strategy;
@@ -26,12 +27,16 @@ namespace DesignPatterns
     {
         static void Main(string[] args)
         {
-            IChatRoomMediator chatRoom = new ChatRoom();
+            var editor = new Editor();
+            var history = new EditorHistory();
 
-            User user1 = new User("User1", chatRoom);
-            User user2 = new User("User2", chatRoom);
-            user1.Send("Hello User2");
-            user2.Send("Hello User1");
+            editor.Type("Mo is here");
+            history.Save(editor.Save());
+            editor.Type(" and he is happy");
+            editor.Save();
+            Console.WriteLine(editor.GetContent());
+            editor.Restore(history.Undo());
+            Console.WriteLine(editor.GetContent());
         }
 
     }
